@@ -24,6 +24,7 @@ public class SettingHelper {
     public static final String beauty_setting = "β_beauty_setting";
     public static final String sidebar_setting = "β_sidebar_setting";
     public static final String proxy_configuration_setting = "β_proxy_configuration_setting";
+    public static final String night_mode_key = "night_mode_enabled";
 
     public static final String master_key = "β_master_key";
     public static final String master_title = "总开关";
