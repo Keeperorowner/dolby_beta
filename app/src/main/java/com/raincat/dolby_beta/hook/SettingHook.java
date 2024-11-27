@@ -391,7 +391,7 @@ public class SettingHook {
                 .setCancelable(true)
                 .setPositiveButton("仅保存", (dialogInterface, i) -> refresh())
                 .setNegativeButton("保存并重启", (dialogInterface, i) -> restartApplication(context)).show();
-            applyNightMode(context, dialogProxyRoot);
+            applyNightMode(context, dialogBeautyRoot);
     }
     private void showBeautyDialog(final Context context) {
         dialogBeautyRoot = new BaseDialogItem(context);
@@ -412,7 +412,7 @@ public class SettingHook {
                 .setCancelable(true)
                 .setPositiveButton("仅保存", (dialogInterface, i) -> refresh())
                 .setNegativeButton("保存并重启", (dialogInterface, i) -> restartApplication(context)).show();
-            applyNightMode(context, dialogProxyRoot);
+            applyNightMode(context, dialogBeautyRoot);
     }
 
     private void showSidebarDialog(final Context context) {
