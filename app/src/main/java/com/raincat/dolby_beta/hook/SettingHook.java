@@ -172,6 +172,34 @@ public class SettingHook {
 
         linearLayout.setOnClickListener(view -> showSettingDialog(context));
     }
+    
+    private void applyNightMode(Context context, View view) {
+    // 从 SharedPreferences 读取夜间模式状态
+    boolean isNightModeEnabled = SettingHelper.getInstance().getSetting(SettingHelper.night_mode_key);
+    
+    if (isNightModeEnabled) {
+        // 夜间模式背景和文字颜色
+        if (view instanceof ViewGroup) {
+            // 深灰色背景
+            view.setBackgroundColor(Color.parseColor("#222222")); 
+        }
+        
+        // 递归处理子View
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                View childView = viewGroup.getChildAt(i);
+                applyNightMode(context, childView);
+            }
+        }
+        
+        // 文字颜色处理
+        if (view instanceof TextView) {
+            TextView textView = (TextView) view;
+            textView.setTextColor(Color.parseColor("#E0E0E0")); // 浅灰文字
+        }
+    }
+}
 
     @SuppressLint("SetTextI18n")
     private void refresh() {
@@ -285,6 +313,7 @@ public class SettingHook {
                 .setCancelable(false)
                 .setPositiveButton("确定", (dialogInterface, i) -> refresh())
                 .setNegativeButton("重启网易云", (dialogInterface, i) -> restartApplication(context)).show();
+            applyNightMode(context, scrollView);
     }
 
     private void showProxyDialog(final Context context) {
@@ -319,6 +348,7 @@ public class SettingHook {
                 .setCancelable(true)
                 .setPositiveButton("仅保存", (dialogInterface, i) -> refresh())
                 .setNegativeButton("保存并重启", (dialogInterface, i) -> restartApplication(context)).show();
+            applyNightMode(context, dialogProxyRoot);
     }
     private void showProxyConfigurationDialog(final Context context) {
         dialogProxyRoot = new BaseDialogItem(context);
@@ -342,6 +372,7 @@ public class SettingHook {
                 .setCancelable(true)
                 .setPositiveButton("仅保存", (dialogInterface, i) -> refresh())
                 .setNegativeButton("保存并重启", (dialogInterface, i) -> restartApplication(context)).show();
+            applyNightMode(context, dialogProxyRoot);
     }
     private void showPlayerBackgroundDialog(final Context context) {
         dialogBeautyRoot = new BaseDialogItem(context);
@@ -360,6 +391,7 @@ public class SettingHook {
                 .setCancelable(true)
                 .setPositiveButton("仅保存", (dialogInterface, i) -> refresh())
                 .setNegativeButton("保存并重启", (dialogInterface, i) -> restartApplication(context)).show();
+            applyNightMode(context, dialogProxyRoot);
     }
     private void showBeautyDialog(final Context context) {
         dialogBeautyRoot = new BaseDialogItem(context);
@@ -380,6 +412,7 @@ public class SettingHook {
                 .setCancelable(true)
                 .setPositiveButton("仅保存", (dialogInterface, i) -> refresh())
                 .setNegativeButton("保存并重启", (dialogInterface, i) -> restartApplication(context)).show();
+            applyNightMode(context, dialogProxyRoot);
     }
 
     private void showSidebarDialog(final Context context) {
@@ -402,6 +435,7 @@ public class SettingHook {
                 .setView(scrollView)
                 .setCancelable(true)
                 .setPositiveButton("确定", (dialogInterface, i) -> refresh()).show();
+            applyNightMode(context, scrollView);
     }
 
     private void restartApplication(Context context) {
